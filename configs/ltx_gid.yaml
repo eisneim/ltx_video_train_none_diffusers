@@ -1,0 +1,76 @@
+model_name: "ltx_lora"
+id_token: "stationary camera, light wind, slight movement,"
+data_root: "/media/eisneim/4T/ltx_data"
+precomputed_datasets:
+  - "/media/eisneim/4T/ltx_gid/ltx_gid_121x960x544"
+  - "/media/eisneim/4T/ltx_gid/ltx_gid_145x832x480"
+  - "/media/eisneim/4T/ltx_gid/ltx_gid_201x512x288"
+  - "/media/eisneim/4T/ltx_gid/ratio_16_9_145x832x480"
+  - "/media/eisneim/4T/ltx_gid/ratio_9_16_145x480x832"
+  - "/media/eisneim/4T/ltx_gid/ratio_43_145x640x480"
+  - "/media/eisneim/4T/ltx_gid/_16_9_portrait_145x832x480"
+  - "/media/eisneim/4T/ltx_gid/_16_9_portrait_145x832x480"
+  - "/media/eisneim/4T/ltx_gid/_16_9_portrait_145x832x480"
+
+
+static_penalty: 0.01
+output_dir: "/home/eisneim/www/ml/_video_gen/ltx_training/data_gid/mixed"
+# output_dir: "/home/eisneim/www/ml/_video_gen/ltx_training/data/mixed"
+caption_dropout_p: 0.1
+caption_dropout_technique: "zero"
+dataloader_num_workers: 4
+# pretrained_model_name_or_path: "./data/fused"
+pretrained_model_name_or_path: "a-r-r-o-w/LTX-Video-0.9.1-diffusers"
+prev_checkpoint: "/home/eisneim/www/ml/_video_gen/ltx_training/data_gid/mixed/prev-5-22k"
+
+flow_resolution_shifting: True
+seed: 7136
+# mixed_precision: "no"
+# batch_size: 4
+mixed_precision: bf16
+batch_size: 3
+# train_steps: 3000
+train_epochs: 100
+
+# ----------- lora or full ---
+is_i2v: True
+noise_to_first_frame: 0.9
+# noise_to_first_frame: 0.1
+train_type: "lora"
+rank: 256
+lora_alpha: 256
+# target_modules: to_q to_k to_v to_out.0
+target_modules: "all-linear"
+gradient_accumulation_steps: 1
+gradient_checkpointing: True
+
+checkpointing_steps: 500
+checkpointing_limit: 4
+enable_slicing: True
+enable_tiling: True
+
+optimizer_8bit: True
+# optimizer_torchao: True
+optimizer: adamw
+lr: 2e-5
+lr_scheduler: constant_with_warmup
+lr_warmup_steps: 100
+lr_num_cycles: 1
+beta1: 0.9
+beta2: 0.95
+weight_decay: 1e-4
+epsilon: 1e-8
+max_grad_norm: 1.0
+
+validation_prompts: ""
+num_validation_videos: 1
+validation_steps: 100000000000000000
+
+tracker_name: ltx_trainer
+nccl_timeout: 1800
+
+
+
+
+
+

@@ -1,0 +1,77 @@
+model_name: "ltx_orbit_lora"
+data_root: "/media/eisneim/4T/ltx_data"
+precomputed_datasets:
+  - "/media/eisneim/4T/ltx_0.9.5/145x672x384" # slow version
+  - "/media/eisneim/4T/ltx_0.9.5/57x704x1056" # vertical
+  - "/media/eisneim/4T/ltx_0.9.5/81x960x544" # dolly
+  - "/media/eisneim/4T/ltx_0.9.5/121x832x480" # 2x version
+  # - "/media/eisneim/4T/ltx_0.9.5/49x1280x704"
+  # - "/media/eisneim/4T/ltx_0.9.5/49x1280x704"
+  # - "/media/eisneim/4T/ltx_0.9.5/49x1024x576" # negative
+  # - "/media/eisneim/4T/ltx_0.9.5/57x1280x704"
+  # - "/media/eisneim/4T/ltx_0.9.5/121x512x288"
+  # - ""
+
+
+output_dir: "./data/lora_256_low_res/"
+# output_dir: "/home/eisneim/www/ml/_video_gen/ltx_training/data/mixed"
+caption_dropout_p: 0.05
+caption_dropout_technique: "zero" # "phrase"
+dataloader_num_workers: 4
+# pretrained_model_name_or_path: "./data/fused"
+pretrained_model_name_or_path: "./pretrained/ltx-video-2b-v0.9.5.safetensors"
+prev_checkpoint: "./data/lora_256_low_res/v4_3.5e-5_16k"
+
+flow_resolution_shifting: True
+seed: 7136
+# mixed_precision: "no"
+# batch_size: 4
+mixed_precision: bf16
+batch_size: 9
+# train_steps: 3000
+train_epochs: 60
+# ------- frame shuffle training method -----
+enable_frame_shuffle: False
+shuffle_ratio: 0.25
+shuffle_prob: 0.8
+# ----------- lora or full ---
+is_i2v: True
+noise_to_first_frame: 0.05
+train_type: "lora"
+rank: 256
+lora_alpha: 256
+target_modules: to_q to_k to_v to_out.0
+# target_modules: "all-linear"
+gradient_accumulation_steps: 1
+gradient_checkpointing: True
+
+checkpointing_steps: 1000
+checkpointing_limit: 4
+enable_slicing: True
+enable_tiling: True
+
+optimizer_8bit: True
+# optimizer_torchao: True
+optimizer: adamw
+lr: 2e-5
+lr_scheduler: constant_with_warmup
+lr_warmup_steps: 100
+lr_num_cycles: 1
+beta1: 0.9
+beta2: 0.95
+weight_decay: 1e-4
+epsilon: 1e-8
+max_grad_norm: 2.0
+
+validation_prompts: ""
+num_validation_videos: 1
+validation_steps: 100000000000000000
+
+tracker_name: ltx_trainer
+nccl_timeout: 1800
+
+
+
+
+
+
