@@ -1,5 +1,5 @@
 # ltx_lora_training_i2v_t2v
-Lora traing script for [Lightricks/LTX-video](https://github.com/Lightricks/LTX-Video) modified from [a-r-r-o-w/finetrainers](https://github.com/a-r-r-o-w/finetrainers) to support image to video training and STG guidancec for inference;
+Lora traing script for [Lightricks/LTX-video](https://github.com/Lightricks/LTX-Video) modified from [a-r-r-o-w/finetrainers](https://github.com/a-r-r-o-w/finetrainers) for official code base, it works for LTX 0.9.5 and with little modification it should work with 0.9.7 13B
 tested on two RTX 4090 24GB
 
 I will update this README add more details onece i finished meta's [VideoJAM](https://hila-chefer.github.io/videojam-paper.github.io/) training method
