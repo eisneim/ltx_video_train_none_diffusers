@@ -45,8 +45,9 @@ def _normalize_latents(
         latents = latents * latents_std / scaling_factor + latents_mean
     return latents
 
-file = "/media/eisneim/4T/ltx_0.9.5/57x704x1056/game_slow_57x704x1056/wd_1742304855_0.pt"
+file = "/media/eisneim/4T/ltx_v2v/672x384x73/anamorphic_acc_73x672x384/fallen-1748328018-None-act0_0.pt"
 data = torch.load(file)
+# target_latents
 ll = data["latents"][0].unsqueeze(0)
 info = data["meta_info"][0]
 print(ll.shape)

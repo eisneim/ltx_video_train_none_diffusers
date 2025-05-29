@@ -654,7 +654,9 @@ class Trainer:
                     )
                     indices = (weights * self.scheduler.config.num_train_timesteps).long()
                     sigmas = scheduler_sigmas[indices]
-                    timesteps = (sigmas * 1000.0).long()
+                    # timesteps = (sigmas * 1000.0).long()
+                    # -------- unlike diffusers LTX, offical version of LTX will scale timestpes in the Transformer3D model
+                    timesteps = sigmas * 1.0
 
 
                     # print("timesteps", timesteps.shape, timesteps)
